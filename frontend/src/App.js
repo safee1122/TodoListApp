@@ -1,9 +1,9 @@
 import "./App.css";
-
+import InputForm from "./components/InputForm";
 function App() {
   return (
     <div className="App">
-      <h1 className="bg-black">todo app</h1>
+      <InputForm />
     </div>
   );
 }

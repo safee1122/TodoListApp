@@ -6,6 +6,8 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var todoRouter = require("./routes/todo");
+
 var cors = require("cors");
 
 var app = express();
@@ -19,5 +21,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/todo", todoRouter);
 
 module.exports = app;
