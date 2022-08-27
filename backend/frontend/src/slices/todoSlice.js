@@ -5,7 +5,7 @@ export const AddTodo = createAsyncThunk(
   "todo/AddTodo",
   async (todo, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:9000/todo/addtodo", {
+      const response = await axios.post(`http://localhost:9000/todo/addtodo`, {
         title: todo,
       });
 
@@ -20,7 +20,7 @@ export const GetTodo = createAsyncThunk(
   "todo/GetTodo",
   async (todo, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:9000/todo/getTodos");
+      const response = await axios.get("/todo/getTodos");
 
       const { data } = response;
       return data;
