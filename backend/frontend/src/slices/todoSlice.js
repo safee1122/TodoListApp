@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+let url = `https://todoappsafee.herokuapp.com`;
 export const AddTodo = createAsyncThunk(
   "todo/AddTodo",
   async (todo, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`http://localhost:9000/todo/addtodo`, {
+      const response = await axios.post(`${url}/todo/addtodo`, {
         title: todo,
       });
 
@@ -20,7 +21,7 @@ export const GetTodo = createAsyncThunk(
   "todo/GetTodo",
   async (todo, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/todo/getTodos");
+      const response = await axios.get(`${url}/todo/getTodos`);
 
       const { data } = response;
       return data;
@@ -33,12 +34,9 @@ export const UpdateTodo = createAsyncThunk(
   "todo/UpdateTodo",
   async (todo, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:9000/todo/updatetodo",
-        {
-          todo,
-        }
-      );
+      const response = await axios.post(`${url}/todo/updatetodo`, {
+        todo,
+      });
 
       const { data } = response;
       return data;
@@ -51,12 +49,9 @@ export const DeleteTodo = createAsyncThunk(
   "todo/DeleteTodo",
   async (_id, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:9000/todo/deleteTodo",
-        {
-          _id,
-        }
-      );
+      const response = await axios.post(`${url}/todo/deleteTodo`, {
+        _id,
+      });
       const { data } = response;
       return data;
     } catch (error) {
@@ -68,12 +63,9 @@ export const AddTodoList = createAsyncThunk(
   "todo/AddTodoList",
   async (todo, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:9000/todoList/addTodoList",
-        {
-          todo,
-        }
-      );
+      const response = await axios.post(`${url}/todoList/addTodoList`, {
+        todo,
+      });
       const { data } = response;
       return data;
     } catch (error) {
@@ -85,12 +77,9 @@ export const DeleteTodoList = createAsyncThunk(
   "todo/DeleteTodoList",
   async (_id, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:9000/todoList/deleteTodoList",
-        {
-          _id,
-        }
-      );
+      const response = await axios.post(`${url}/todoList/deleteTodoList`, {
+        _id,
+      });
       const { data } = response;
       return data;
     } catch (error) {
@@ -102,12 +91,9 @@ export const UpdateTodoList = createAsyncThunk(
   "todo/UpdateTodoList",
   async (todo, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:9000/todoList/updatetodoList",
-        {
-          todo,
-        }
-      );
+      const response = await axios.post(`${url}/todoList/updatetodoList`, {
+        todo,
+      });
 
       const { data } = response;
       return data;
