@@ -29,7 +29,6 @@ function ListTab({ id }) {
   const [isActive, setIsActive] = useState("");
 
   const handleAddClick = () => {
-    console.log(value);
     dispatch(
       AddTodoList({
         id,

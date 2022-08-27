@@ -28,7 +28,6 @@ const updateTodo = async (req, res) => {
 const getTodos = async (req, res) => {
   try {
     const todos = await Todo.find().exec();
-    console.log(todos);
     res.status(200).json(todos);
   } catch (error) {
     res.status(500).json(error.message);
@@ -37,7 +36,6 @@ const getTodos = async (req, res) => {
 const deleteTodo = async (req, res) => {
   try {
     const deleted = await Todo.findOneAndDelete({ _id: req.body._id }).exec();
-    console.log(deleted);
     res.status(200).json(deleted);
   } catch (error) {
     console.log(error.message);
