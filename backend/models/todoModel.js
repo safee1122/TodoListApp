@@ -7,8 +7,15 @@ const todoScehma = new mongoose.Schema({
   },
   todoList: [
     {
-      name: String,
-      default: "",
+      name: {
+        type: String,
+      },
+      date: {
+        type: String,
+      },
+      status: {
+        type: Boolean,
+      },
     },
   ],
 });

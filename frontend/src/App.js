@@ -1,13 +1,8 @@
 import "./App.css";
-import InputForm from "./components/InputForm";
 import TodoTab from "./components/TodoTab";
+import ListTab from "./components/ListTab";
 function App() {
-  return (
-    <div className="App">
-      <InputForm />
-      <TodoTab />
-    </div>
-  );
+  return <TodoTab />;
 }
 
 export default App;

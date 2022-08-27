@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var todoRouter = require("./routes/todo");
+var todoListRouter = require("./routes/todoList");
 
 var cors = require("cors");
 
@@ -22,5 +23,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/todo", todoRouter);
+app.use("/todoList", todoListRouter);
 
 module.exports = app;
