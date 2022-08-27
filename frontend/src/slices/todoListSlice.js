@@ -30,12 +30,12 @@ export const GetTodo = createAsyncThunk(
     }
   }
 );
-export const UpdateTodo = createAsyncThunk(
+export const UpdateTodoList = createAsyncThunk(
   "todo/UpdateTodo",
   async (todo, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:9000/todo/updatetodo",
+        "http://localhost:9000/todoList/updatetodoList",
         {
           todo,
         }
@@ -48,12 +48,12 @@ export const UpdateTodo = createAsyncThunk(
     }
   }
 );
-export const DeleteTodo = createAsyncThunk(
-  "todo/DeleteTodo",
+export const DeleteTodoList = createAsyncThunk(
+  "todo/DeleteTodoList",
   async (_id, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:9000/todo/deleteTodo",
+        "http://localhost:9000/todoList/deleteTodoList",
         {
           _id,
         }
@@ -84,7 +84,7 @@ const todoSlice = createSlice({
       .addCase(AddTodoList.rejected, (state, action) => {
         state.message = action.payload;
       })
-      .addCase(UpdateTodo.fulfilled, (state, action) => {
+      .addCase(UpdateTodoList.fulfilled, (state, action) => {
         state.todos.forEach((element) => {
           if (element._id === action.payload._id) {
             console.log(element._id);
@@ -103,7 +103,7 @@ const todoSlice = createSlice({
       .addCase(GetTodo.rejected, (state, action) => {
         console.log(action.payload);
       })
-      .addCase(DeleteTodo.fulfilled, (state, action) => {
+      .addCase(DeleteTodoList.fulfilled, (state, action) => {
         state.todos = state.todos.filter(
           (todo) => todo._id !== action.payload._id
         );

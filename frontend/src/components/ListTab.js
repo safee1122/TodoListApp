@@ -8,17 +8,21 @@ import { useDispatch } from "react-redux";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AddTodoList } from "../slices/todoSlice";
+import {
+  AddTodoList,
+  DeleteTodoList,
+  UpdateTodoList,
+} from "../slices/todoSlice";
 import dayjs from "dayjs";
 
 function ListTab({ id }) {
   const todos = useSelector((state) => state.app.todos);
   const listTodo = todos.find((todo) => todo._id === id);
   const listItem = listTodo.todoList;
-  const [update, setUpdate] = useState({
-    _id: "",
-    status: false,
-  });
+  const [update, setUpdate] = useState(false);
+  const [itemId, setItemId] = useState("");
+  const [itemStatus, setItemStatus] = useState(false);
+
   const [todo, setTodo] = useState("");
   const [value, setValue] = useState(null);
 
@@ -38,23 +42,41 @@ function ListTab({ id }) {
     );
     setTodo("");
   };
-  const handleUpdateClick = () => {
+  const handleUpdateClick = (_id, status) => {
+    dispatch(
+      UpdateTodoList({
+        name: todo,
+        _id: itemId,
+        status: itemStatus,
+      })
+    );
     setTodo("");
-    setUpdate({ _id: "", status: false });
+    setUpdate(false);
+    setItemId("");
+    setItemStatus(false);
   };
-  const deleteHandler = (_id) => {};
-  const handleEdit = (_id, text) => {
-    if (!update.status) {
-      setUpdate({ _id, status: true });
+  const deleteHandler = (_id) => {
+    dispatch(DeleteTodoList(_id));
+  };
+  const handleEdit = (item_id, text, status) => {
+    if (!update) {
+      setUpdate(true);
+      setItemId(item_id);
+      setItemStatus(status);
       setTodo(text);
-    }
-    if (update.status) {
-      setUpdate({ _id: "", status: false });
+    } else if (update) {
+      setUpdate(false);
       setTodo("");
     }
   };
-  const handleStatusChange = (listItemStatus) => {
-    console.log(listItemStatus);
+  const handleStatusChange = (listItem) => {
+    dispatch(
+      UpdateTodoList({
+        name: listItem.name,
+        _id: listItem._id,
+        status: !listItem.status,
+      })
+    );
   };
   return (
     <>
@@ -70,7 +92,7 @@ function ListTab({ id }) {
             setTodo(e.target.value);
           }}
         />
-        {update.status === false && (
+        {update === false && (
           <div className="px-1">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -89,10 +111,10 @@ function ListTab({ id }) {
         <div className="ml-3">
           <Button
             variant="contained"
-            onClick={update.status ? handleUpdateClick : handleAddClick}
+            onClick={update ? handleUpdateClick : handleAddClick}
             size="large"
           >
-            {update.status ? "Update" : "Add"}
+            {update ? "Update" : "Add"}
           </Button>
         </div>
       </div>
@@ -108,9 +130,11 @@ function ListTab({ id }) {
           <ListHeading
             key={index}
             title={listItem.name}
-            onUpdate={() => handleEdit(listItem._id, listItem.title)}
+            onUpdate={() =>
+              handleEdit(listItem._id, listItem.name, listItem.status)
+            }
             onDelete={() => deleteHandler(listItem._id)}
-            onStatusChange={() => handleStatusChange(listItem.id)}
+            onStatusChange={() => handleStatusChange(listItem)}
             defaultStatus={listItem.status}
             Date={listItem.date}
           />

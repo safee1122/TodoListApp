@@ -82,6 +82,41 @@ export const AddTodoList = createAsyncThunk(
     }
   }
 );
+export const DeleteTodoList = createAsyncThunk(
+  "todo/DeleteTodoList",
+  async (_id, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:9000/todoList/deleteTodoList",
+        {
+          _id,
+        }
+      );
+      const { data } = response;
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const UpdateTodoList = createAsyncThunk(
+  "todo/UpdateTodoList",
+  async (todo, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:9000/todoList/updatetodoList",
+        {
+          todo,
+        }
+      );
+
+      const { data } = response;
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const todoSlice = createSlice({
   name: "todo",
@@ -129,6 +164,23 @@ const todoSlice = createSlice({
       })
       .addCase(AddTodoList.rejected, (state, action) => {
         state.message = action.payload;
+      })
+      .addCase(DeleteTodoList.fulfilled, (state, action) => {
+        state.todos.forEach((todo) => {
+          if (todo._id === action.payload._id) {
+            todo.todoList = action.payload.todoList;
+          }
+        });
+      })
+      .addCase(UpdateTodoList.fulfilled, (state, action) => {
+        state.todos.forEach((todo) => {
+          if (todo._id === action.payload._id) {
+            todo.todoList = action.payload.todoList;
+          }
+        });
+      })
+      .addCase(UpdateTodoList.rejected, (state, action) => {
+        console.log(action.payload);
       });
   },
 });
