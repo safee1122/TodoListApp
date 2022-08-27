@@ -16,10 +16,9 @@ function TodoTab() {
   });
   const [showList, setShowList] = useState(false);
   const [showListId, setShowListId] = useState("");
-
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
-
+  const [isActive, setIsActive] = useState("");
   const handleAddClick = () => {
     dispatch(AddTodo(todo));
     setTodo("");
@@ -37,20 +36,23 @@ function TodoTab() {
     if (!update.status) {
       setUpdate({ _id, status: true });
       setTodo(text);
+      setIsActive(_id);
     }
     if (update.status) {
       setUpdate({ _id: "", status: false });
       setTodo("");
+      setIsActive("");
     }
   };
   const NameClickHandler = (_id) => {
     if (!showList) {
       setShowListId(_id);
-      setShowList(true);
-    }
-    if (showList) {
-      setShowList(false);
-      setShowListId("");
+      setShowList(!showList);
+      setIsActive(_id);
+    } else if (showList) {
+      // setShowList(!showList);
+      setShowListId(_id);
+      setIsActive(_id);
     }
   };
 
@@ -96,6 +98,11 @@ function TodoTab() {
               onUpdate={() => handleEdit(todo._id, todo.title)}
               onDelete={() => deleteHandler(todo._id)}
               onNameClick={() => NameClickHandler(todo._id)}
+              activeClass={
+                isActive === todo._id
+                  ? "flex flex-1 justify-between h-10 bg-gray-600 "
+                  : "flex flex-1 justify-between h-10  bg-neutral-400"
+              }
             />
           ))}
         </div>

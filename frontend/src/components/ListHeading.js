@@ -6,6 +6,7 @@ import CrossIcon from "@mui/icons-material/Close";
 import TickIcon from "@mui/icons-material/Check";
 
 import { useState } from "react";
+import { blueGrey } from "@mui/material/colors";
 function ListHeading({
   defaultStatus,
   title,
@@ -14,9 +15,10 @@ function ListHeading({
   onNameClick,
   Date,
   onStatusChange,
+  activeClass,
 }) {
   return (
-    <div className="flex flex-1 justify-between h-10 bg-neutral-400 ">
+    <div className={activeClass}>
       {Date ? (
         <div className="w-full text-center">
           <IconButton aria-label="edit" size="large" onClick={onStatusChange}>
@@ -34,7 +36,7 @@ function ListHeading({
       />
       {Date ? (
         <input
-          className=" w-full  bg-neutral-400  text-white text-center"
+          className=" w-full  bg-transparent  text-white text-center"
           type="text"
           value={Date}
           readOnly

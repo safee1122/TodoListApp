@@ -22,11 +22,11 @@ function ListTab({ id }) {
   const [update, setUpdate] = useState(false);
   const [itemId, setItemId] = useState("");
   const [itemStatus, setItemStatus] = useState(false);
-
   const [todo, setTodo] = useState("");
   const [value, setValue] = useState(null);
-
   const dispatch = useDispatch();
+
+  const [isActive, setIsActive] = useState("");
 
   const handleAddClick = () => {
     console.log(value);
@@ -64,8 +64,10 @@ function ListTab({ id }) {
       setItemId(item_id);
       setItemStatus(status);
       setTodo(text);
+      setIsActive(item_id);
     } else if (update) {
       setUpdate(false);
+      setIsActive("");
       setTodo("");
     }
   };
@@ -137,6 +139,11 @@ function ListTab({ id }) {
             onStatusChange={() => handleStatusChange(listItem)}
             defaultStatus={listItem.status}
             Date={listItem.date}
+            activeClass={
+              isActive === listItem._id
+                ? "flex flex-1 justify-between h-10 bg-gray-600 "
+                : "flex flex-1 justify-between h-10  bg-neutral-400"
+            }
           />
         ))}
       </div>
