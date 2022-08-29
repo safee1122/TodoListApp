@@ -81,7 +81,7 @@ function ListTab({ id }) {
   };
   return (
     <>
-      <div className="flex p-5">
+      <div className="flex p-5 min-w-fit">
         <TextField
           id="outlined-basic"
           label="Name"
@@ -119,7 +119,7 @@ function ListTab({ id }) {
           </Button>
         </div>
       </div>
-      <div className="flex flex-col justify-between content-center w-full ">
+      <div className="flex flex-col justify-between content-center w-full min-w-min ">
         <div className=" flex justify-between content-center h-8 bg-gray-300 px-5 text-white">
           <p>Status</p>
           <p>Name</p>

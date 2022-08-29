@@ -61,9 +61,9 @@ function TodoTab() {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-1 justify-between">
-      <div className="w-1/3 p-3">
-        <div className="flex p-5">
+    <div className="flex flex-wrap flex-1 justify-between">
+      <div className=" min-w-min p-3">
+        <div className=" min-w-min flex p-5">
           <TextField
             id="outlined-basic"
             label="Name"
@@ -108,7 +108,7 @@ function TodoTab() {
         </div>
       </div>
       {showList === true && (
-        <div className="w-1/2 p-3">
+        <div className="p-3">
           <ListTab id={showListId} />
         </div>
       )}
